@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   end
 
   def update_subtotal
-    self[:subtotal] = subtotal
+    self[:price] = price
   end
 
 end
