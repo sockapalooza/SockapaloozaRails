@@ -4,10 +4,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_order
-    if !session[:order_id].nil?
+    if session[:order_id]
       Order.find(session[:order_id])
     else
-      Order.new
+      order = Order.create!
+      session[:order_id] = order.id
+      order
     end
   end
 
