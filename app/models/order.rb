@@ -5,13 +5,13 @@ class Order < ApplicationRecord
   before_save :update_subtotal
 
   def subtotal
-    orderings.collect{|orderings| oi.valid? ? (orderings.quantity * orderings.unit_price):0}.sum
+    orderings.collect{|orderings| orderings.quantity * orderings.unit_price}.sum
   end
 
   private
 
   def set_order_status
-    self.order_status_id = 1
+    self.order_status_id = "In Progress"
   end
 
   def update_subtotal
