@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809175913) do
+ActiveRecord::Schema.define(version: 20160809182648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,8 +45,6 @@ ActiveRecord::Schema.define(version: 20160809175913) do
     t.string   "name"
     t.string   "color"
     t.string   "style"
-    t.string   "size"
-    t.integer  "quantity"
     t.integer  "price"
     t.string   "image"
     t.string   "materials"
@@ -54,6 +52,22 @@ ActiveRecord::Schema.define(version: 20160809175913) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "type"
+  end
+
+  create_table "sizes", force: :cascade do |t|
+    t.string   "size"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sizings", force: :cascade do |t|
+    t.integer  "size_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_sizings_on_product_id", using: :btree
+    t.index ["size_id"], name: "index_sizings_on_size_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,4 +81,6 @@ ActiveRecord::Schema.define(version: 20160809175913) do
 
   add_foreign_key "orderings", "orders"
   add_foreign_key "orderings", "products"
+  add_foreign_key "sizings", "products"
+  add_foreign_key "sizings", "sizes"
 end
