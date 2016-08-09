@@ -5,3 +5,27 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+session = GoogleDrive::Session.from_config("config.json")
+session.spreadsheet_by_key("1m_x4ZtQzTHYldutf_i90uXSfKfEjFXSPvyV_L58nDJ0").worksheets.each do |sheet|
+  type = sheet.title
+  sheet.rows(1).each do |row|
+  sock =  Product.create!(
+    name: row[0],
+    color: row[1],
+    style: row[2],
+    price: row[5].delete("$").to_i * 100,
+    image: row[6],
+    category: type,
+    materials: row[7] || type.delete(" Socks")
+    )
+
+    sizeandquality = row[4].split(", ").map{|x| x.split(": ")}.each do |size|
+      sock.sizes << Size.create!(
+      size: size[0],
+      quantity: size[1]
+      )
+    end
+
+  end
+
+end
