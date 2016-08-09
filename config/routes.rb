@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'orderings/create'
+
+  get 'orderings/update'
+
+  get 'orderings/destroy'
+
   resources :orders
   resources :users
   resources :products
