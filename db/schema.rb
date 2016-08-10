@@ -10,40 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160809205650) do
-=======
-ActiveRecord::Schema.define(version: 20160809194507) do
->>>>>>> 12f1a47ad83218071d2027634037433ef5c09d0c
+ActiveRecord::Schema.define(version: 20160810195401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "order_statuses", force: :cascade do |t|
-    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "orderings", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "order_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "quantity"
-    t.integer  "total_price"
     t.index ["order_id"], name: "index_orderings_on_order_id", using: :btree
     t.index ["product_id"], name: "index_orderings_on_product_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "price"
-    t.integer  "quantity"
-    t.integer  "user_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "order_status_id"
+    t.integer  "user_id"
+    t.integer  "order_status_id"
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|
@@ -60,9 +54,28 @@ ActiveRecord::Schema.define(version: 20160809194507) do
     t.string   "product_image_id"
   end
 
+  create_table "refile_attachments", force: :cascade do |t|
+    t.integer  "oid",        null: false
+    t.string   "namespace",  null: false
+    t.datetime "created_at"
+    t.index ["namespace"], name: "index_refile_attachments_on_namespace", using: :btree
+    t.index ["oid"], name: "index_refile_attachments_on_oid", using: :btree
+  end
+
+  create_table "shippings", force: :cascade do |t|
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shippings_on_user_id", using: :btree
+  end
+
   create_table "sizes", force: :cascade do |t|
     t.string   "size"
-    t.integer  "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -72,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160809194507) do
     t.integer  "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "quantity"
     t.index ["product_id"], name: "index_sizings_on_product_id", using: :btree
     t.index ["size_id"], name: "index_sizings_on_size_id", using: :btree
   end
@@ -87,6 +101,7 @@ ActiveRecord::Schema.define(version: 20160809194507) do
 
   add_foreign_key "orderings", "orders"
   add_foreign_key "orderings", "products"
+  add_foreign_key "shippings", "users"
   add_foreign_key "sizings", "products"
   add_foreign_key "sizings", "sizes"
 end
