@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 session = GoogleDrive::Session.from_config("config.json")
 session.spreadsheet_by_key("1m_x4ZtQzTHYldutf_i90uXSfKfEjFXSPvyV_L58nDJ0").worksheets.each do |sheet|
   type = sheet.title
@@ -16,7 +17,9 @@ session.spreadsheet_by_key("1m_x4ZtQzTHYldutf_i90uXSfKfEjFXSPvyV_L58nDJ0").works
     price: row[5].delete("$").to_i * 100,
     image: row[6],
     category: type,
-    materials: row[7] || type.delete(" Socks")
+    materials: row[7] || type.delete(" Socks"),
+    remote_product_image_url: row[6],
+    description: row[8]
     )
 
     sizeandquality = row[4].split(", ").map{|x| x.split(": ")}.each do |size|
