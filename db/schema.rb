@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160809194507) do
-=======
-ActiveRecord::Schema.define(version: 20160809184417) do
->>>>>>> 48958a8df0f0fd564b0460688b860f617effa802
+ActiveRecord::Schema.define(version: 20160809205650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,9 +50,10 @@ ActiveRecord::Schema.define(version: 20160809184417) do
     t.string   "image"
     t.string   "materials"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "category"
+    t.string   "product_image_id"
   end
 
   create_table "sizes", force: :cascade do |t|
