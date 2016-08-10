@@ -8,6 +8,8 @@ class ProductsController < ApplicationController
 
   def filterresults
     filter = params[:filter].split(", ")
-    
+  end
+  
+
 
 end
