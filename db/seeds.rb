@@ -29,3 +29,9 @@ session.spreadsheet_by_key("1m_x4ZtQzTHYldutf_i90uXSfKfEjFXSPvyV_L58nDJ0").works
   end
 
 end
+
+OrderStatus.create! id: 1, name: "In Progress"
+OrderStatus.create! id: 2, name: "Billing"
+OrderStatus.create! id: 3, name: "Placed"
+OrderStatus.create! id: 4, name: "Shipping"
+OrderStatus.create! id: 5, name: "Completed"
