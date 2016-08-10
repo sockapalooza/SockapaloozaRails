@@ -51,9 +51,9 @@ CREATE TABLE ar_internal_metadata (
 
 CREATE TABLE order_statuses (
     id integer NOT NULL,
-    name character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    name character varying
 );
 
 
@@ -86,9 +86,7 @@ CREATE TABLE orderings (
     order_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    unit_price integer,
-    quantity integer,
-    total_price integer
+    quantity integer
 );
 
 
@@ -119,8 +117,8 @@ CREATE TABLE orders (
     id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    order_status_id character varying,
-    user_id integer
+    user_id integer,
+    order_status_id integer
 );
 
 
@@ -265,7 +263,6 @@ ALTER SEQUENCE shippings_id_seq OWNED BY shippings.id;
 CREATE TABLE sizes (
     id integer NOT NULL,
     size character varying,
-    quantity integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -299,7 +296,8 @@ CREATE TABLE sizings (
     size_id integer,
     product_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    quantity integer
 );
 
 
@@ -522,6 +520,13 @@ CREATE INDEX index_orderings_on_product_id ON orderings USING btree (product_id)
 
 
 --
+-- Name: index_orders_on_order_status_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_order_status_id ON orders USING btree (order_status_id);
+
+
+--
 -- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -609,6 +614,6 @@ ALTER TABLE ONLY sizings
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160808192516'), ('20160808192606'), ('20160808192851'), ('20160808203547'), ('20160808203835'), ('20160808212618'), ('20160809175224'), ('20160809175913'), ('20160809180830'), ('20160809181103'), ('20160809182648'), ('20160809184417'), ('20160809194507'), ('20160809205650'), ('20160809205855'), ('20160810164632'), ('20160810185507'), ('20160810190444');
+INSERT INTO schema_migrations (version) VALUES ('20160808192516'), ('20160808192606'), ('20160808192851'), ('20160808203547'), ('20160808203835'), ('20160808212618'), ('20160809175224'), ('20160809175913'), ('20160809180830'), ('20160809181103'), ('20160809182648'), ('20160809184417'), ('20160809194507'), ('20160809205650'), ('20160809205855'), ('20160810164632'), ('20160810185507'), ('20160810190444'), ('20160810194102'), ('20160810194322'), ('20160810194551'), ('20160810195038'), ('20160810195401');
 
 
