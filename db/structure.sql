@@ -117,12 +117,10 @@ ALTER SEQUENCE orderings_id_seq OWNED BY orderings.id;
 
 CREATE TABLE orders (
     id integer NOT NULL,
-    price integer,
-    quantity integer,
-    user_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    order_status_id character varying
+    order_status_id character varying,
+    user_id integer
 );
 
 
@@ -222,6 +220,42 @@ ALTER SEQUENCE refile_attachments_id_seq OWNED BY refile_attachments.id;
 CREATE TABLE schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: shippings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE shippings (
+    id integer NOT NULL,
+    address1 character varying,
+    address2 character varying,
+    city character varying,
+    state character varying,
+    zipcode character varying,
+    user_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: shippings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE shippings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shippings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE shippings_id_seq OWNED BY shippings.id;
 
 
 --
@@ -361,6 +395,13 @@ ALTER TABLE ONLY refile_attachments ALTER COLUMN id SET DEFAULT nextval('refile_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY shippings ALTER COLUMN id SET DEFAULT nextval('shippings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY sizes ALTER COLUMN id SET DEFAULT nextval('sizes_id_seq'::regclass);
 
 
@@ -435,6 +476,14 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
+-- Name: shippings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY shippings
+    ADD CONSTRAINT shippings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sizes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -473,6 +522,13 @@ CREATE INDEX index_orderings_on_product_id ON orderings USING btree (product_id)
 
 
 --
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_user_id ON orders USING btree (user_id);
+
+
+--
 -- Name: index_refile_attachments_on_namespace; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -484,6 +540,13 @@ CREATE INDEX index_refile_attachments_on_namespace ON refile_attachments USING b
 --
 
 CREATE INDEX index_refile_attachments_on_oid ON refile_attachments USING btree (oid);
+
+
+--
+-- Name: index_shippings_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_shippings_on_user_id ON shippings USING btree (user_id);
 
 
 --
@@ -525,6 +588,14 @@ ALTER TABLE ONLY orderings
 
 
 --
+-- Name: fk_rails_f5a856ceb8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY shippings
+    ADD CONSTRAINT fk_rails_f5a856ceb8 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_fa1e09c4e4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -538,6 +609,6 @@ ALTER TABLE ONLY sizings
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160808192516'), ('20160808192606'), ('20160808192851'), ('20160808203547'), ('20160808203835'), ('20160808212618'), ('20160809175224'), ('20160809175913'), ('20160809180830'), ('20160809181103'), ('20160809182648'), ('20160809184417'), ('20160809194507'), ('20160809205650'), ('20160809205855');
+INSERT INTO schema_migrations (version) VALUES ('20160808192516'), ('20160808192606'), ('20160808192851'), ('20160808203547'), ('20160808203835'), ('20160808212618'), ('20160809175224'), ('20160809175913'), ('20160809180830'), ('20160809181103'), ('20160809182648'), ('20160809184417'), ('20160809194507'), ('20160809205650'), ('20160809205855'), ('20160810164632'), ('20160810185507'), ('20160810190444');
 
 
