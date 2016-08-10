@@ -5,15 +5,11 @@ class Ordering < ApplicationRecord
   validates :quantity, presence: true
 
   def unit_price
-    if persisted?
-      self[:unit_price]
-    else
       product.price
-    end
   end
 
   def total_price
-    product.price * quantity
+    unit_price * quantity
   end
 
 
