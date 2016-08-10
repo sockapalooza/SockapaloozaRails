@@ -1,9 +1,14 @@
 class OrderingsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def create
     @order = current_order
     @ordering = @order.orderings.new(ordering_params)
     @order.save
     session[:order_id] = @order.id
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
@@ -24,5 +29,5 @@ class OrderingsController < ApplicationController
 
   def ordering_params
     params.require(:ordering).permit(:quantity, :product_id)
-  end    
+  end
 end
