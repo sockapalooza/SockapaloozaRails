@@ -12,7 +12,6 @@ class User < ApplicationRecord
     else
       orders.create!
     end
-
   end
 
 
