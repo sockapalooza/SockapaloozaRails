@@ -1,6 +1,7 @@
 class Ordering < ApplicationRecord
   belongs_to :product
   belongs_to :order
+  belongs_to :size
 
   validates :quantity, presence: true
   validates :order, presence: true

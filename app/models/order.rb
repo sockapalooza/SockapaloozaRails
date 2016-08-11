@@ -13,9 +13,9 @@ class Order < ApplicationRecord
 
   def shipping_price
     if quantity >= 5
-      6
+      600
     else
-      quantity * 4
+      quantity * 400
     end
   end
 

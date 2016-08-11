@@ -2,8 +2,13 @@ class OrdersController < ApplicationController
 
 
   def show
-    @orderings = current_order.orderings
-    render json: @orderings
+    @order = current_user.current_order
+    render json: @order, serializer: OrderSerializer
+  end
+
+  def checkout
+    @order = current_user.current_order
+    render json: @order, serializer: CheckoutSerializer
   end
 
 end

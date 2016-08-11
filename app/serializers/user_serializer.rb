@@ -6,7 +6,7 @@ class UserSerializer < ActiveModel::Serializer
 
 
   def order
-    object.current_order
+    object.current_order.id
   end
 
 end

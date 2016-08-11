@@ -3,9 +3,14 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all.order(price: :desc)
-    # @ordering = current_order.orderings.new
     render json: @products
   end
+
+  def show
+    @product = Product.find(params[:id])
+    render json: @product
+  end
+
 
   def featured
     promo = Promo.pluck(:product_id)
