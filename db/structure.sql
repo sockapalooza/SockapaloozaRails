@@ -181,6 +181,38 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 
 --
+-- Name: promos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE promos (
+    id integer NOT NULL,
+    product_id integer,
+    promo_image_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: promos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE promos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: promos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE promos_id_seq OWNED BY promos.id;
+
+
+--
 -- Name: refile_attachments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -331,7 +363,7 @@ CREATE TABLE users (
     email character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    role character varying
+    role character varying DEFAULT 'guest'::character varying
 );
 
 
@@ -380,6 +412,13 @@ ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::reg
 --
 
 ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY promos ALTER COLUMN id SET DEFAULT nextval('promos_id_seq'::regclass);
 
 
 --
@@ -455,6 +494,14 @@ ALTER TABLE ONLY orders
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: promos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY promos
+    ADD CONSTRAINT promos_pkey PRIMARY KEY (id);
 
 
 --
@@ -614,6 +661,6 @@ ALTER TABLE ONLY sizings
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160808192516'), ('20160808192606'), ('20160808192851'), ('20160808203547'), ('20160808203835'), ('20160808212618'), ('20160809175224'), ('20160809175913'), ('20160809180830'), ('20160809181103'), ('20160809182648'), ('20160809184417'), ('20160809194507'), ('20160809205650'), ('20160809205855'), ('20160810164632'), ('20160810185507'), ('20160810190444'), ('20160810194102'), ('20160810194322'), ('20160810194551'), ('20160810195038'), ('20160810195401');
+INSERT INTO schema_migrations (version) VALUES ('20160808192516'), ('20160808192606'), ('20160808192851'), ('20160808203547'), ('20160808203835'), ('20160808212618'), ('20160809175224'), ('20160809175913'), ('20160809180830'), ('20160809181103'), ('20160809182648'), ('20160809184417'), ('20160809194507'), ('20160809205650'), ('20160809205855'), ('20160810164632'), ('20160810185507'), ('20160810190444'), ('20160810194102'), ('20160810194322'), ('20160810194551'), ('20160810195038'), ('20160810195401'), ('20160811014234'), ('20160811170723');
 
 

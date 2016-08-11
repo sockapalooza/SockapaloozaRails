@@ -7,5 +7,5 @@ end
 if Rails.env.production?
   Refile.cdn_host = 'https://immense-plains-33478.herokuapp.com/'
 else
-  Refile.cdn_host = 'http://localhost:3000/'
+  Refile.cdn_host = 'http://1fb503fe.ngrok.io/'
 end
