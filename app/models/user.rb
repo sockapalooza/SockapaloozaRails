@@ -2,11 +2,15 @@ class User < ApplicationRecord
   has_many :orders
   has_many :shippings
 
+   def active_orders
+     orders.includes(:order_status).where(order_statuses: {name: ["In Progress", "Billing"]}).order("orders.created_at DESC")
+   end
+
   def current_order
-    if
-      orders.includes(:order_status).where("order_statuses.name IN ?", ["In Progress", "Billing"]).order("order.created_at DESC").last
+    if active_orders.any?
+      active_orders.last
     else
-      order = Order.create!
+      orders.create!
     end
   end
 

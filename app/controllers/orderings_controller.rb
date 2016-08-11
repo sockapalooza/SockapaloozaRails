@@ -21,7 +21,7 @@ class OrderingsController < ApplicationController
     @ordering.destroy
     render :json current_user
   end
-
+  
   private
 
   def ordering_params

@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :current_user, only: [:index]
 
   def index
     @products = Product.all.order(price: :desc)
@@ -13,7 +14,7 @@ class ProductsController < ApplicationController
     render json: @promos
   end
 
-  
+
 
 
 end

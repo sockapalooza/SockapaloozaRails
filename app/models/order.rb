@@ -2,7 +2,6 @@ class Order < ApplicationRecord
   belongs_to :order_status
   has_many :orderings
   before_validation :set_order_status, on: :create
-  before_save :update_subtotal
 
   def quantity
     orderings.sum(:quantity)
@@ -31,7 +30,7 @@ class Order < ApplicationRecord
   private
 
   def set_order_status
-    order_status_id = 1
+    self.order_status = OrderStatus.find_by(name: 'In Progress')
   end
 
 end
