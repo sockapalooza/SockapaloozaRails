@@ -3,6 +3,7 @@ class Ordering < ApplicationRecord
   belongs_to :order
 
   validates :quantity, presence: true
+  validates :order, presence: true
 
   def unit_price
       product.price

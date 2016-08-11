@@ -8,7 +8,6 @@ class User < ApplicationRecord
     else
       order = Order.create!
     end
-
   end
 
 
