@@ -13,4 +13,7 @@ class ProductsController < ApplicationController
     render json: @promos
   end
 
+  
+
+
 end
