@@ -7,6 +7,8 @@ class ProductsController < ApplicationController
   end
 
   def featured
+    promo = Promo.pluck(:product_id)
+    @promosproduct = Product.where(id: promo)
     @promos = Promo.all
     render json: @promos
   end
