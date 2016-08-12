@@ -5,6 +5,9 @@ class Ordering < ApplicationRecord
 
   validates :quantity, presence: true
   validates :order, presence: true
+  validates :size, presence: true
+  validates :product, presence: true
+
 
   def unit_price
       product.price

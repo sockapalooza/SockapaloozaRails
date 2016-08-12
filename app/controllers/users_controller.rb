@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
 
   def create
-    current_user.update!(
+    @user = current_user.update!(
     username: params[:username],
     email: params[:email],
     password: params[:password],
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     )
     if @user.save
       session[:username] = @user.username
+      UserNotifier.send_signup_email(@user).deliver
       redirect_to root_path
       # respond_to do |format|
       #   format.json {render @user, status: :created}
