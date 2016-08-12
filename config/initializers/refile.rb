@@ -5,7 +5,7 @@ Refile.configure do |config|
 end
 
 if Rails.env.production?
-  Refile.cdn_host = 'https://immense-plains-33478.herokuapp.com/'
+  Refile.cdn_host = 'https://powerful-coast-15525.herokuapp.com/'
 else
   Refile.cdn_host = 'http://1fb503fe.ngrok.io/'
 end
