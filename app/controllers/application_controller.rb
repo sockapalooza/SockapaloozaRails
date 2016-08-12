@@ -15,4 +15,11 @@ class ApplicationController < ActionController::Base
     @current_user
   end
 
+  def adjuststock(size_id, product_id, orderamount)
+    sizing = Sizing.where(product_id: product_id)&.where(size_id: size_id).first
+    sizing.quantity = sizing.quantity - orderamount
+    sizing.save!
+  end
+
+
 end
