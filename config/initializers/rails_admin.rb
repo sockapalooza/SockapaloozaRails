@@ -47,7 +47,7 @@ RailsAdmin.config do |config|
     exclude_fields :orderings
     exclude_fields :created_at
     exclude_fields :updated_at
-    field :sizes 
+    field :sizes
     field :price do
       formatted_value do
         value/100.0
@@ -56,13 +56,19 @@ RailsAdmin.config do |config|
   end
 
   config.model 'User' do
+      field :id
       field :username
       field :email
       field :role
       field :orders
   end
 
+  config.model 'Size' do
+    field :id
+    field :size
+    field :products
+  end
+
   config.excluded_models << Shipping
-  config.excluded_models << Size
   config.excluded_models << Sizing
 end
