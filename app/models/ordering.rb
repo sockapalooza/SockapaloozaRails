@@ -1,10 +1,13 @@
 class Ordering < ApplicationRecord
   belongs_to :product
-  belongs_to :order
+  belongs_to :order, dependent: :destroy
   belongs_to :size
 
   validates :quantity, presence: true
   validates :order, presence: true
+  validates :size, presence: true
+  validates :product, presence: true
+
 
   def unit_price
       product.price

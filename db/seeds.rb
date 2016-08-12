@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+descriptions = ["This fine sock made of quality materials. Graded in ecru and colors on a background. Perfect to wear with both casual and smart attire.", "This sock will blow your socks off.", "This sock feels like you're walking on a cloud. Made of materials unattainabble by mere mortals.", "This sock won't smell until you wear them. Then they'll smell like teen spirit.", "Guaranteed to last a lifetime, or 2 years. Whichever comes first."]
 session = GoogleDrive::Session.from_config("config.json")
 session.spreadsheet_by_key("1m_x4ZtQzTHYldutf_i90uXSfKfEjFXSPvyV_L58nDJ0").worksheets.each do |sheet|
   type = sheet.title
@@ -19,7 +19,7 @@ session.spreadsheet_by_key("1m_x4ZtQzTHYldutf_i90uXSfKfEjFXSPvyV_L58nDJ0").works
     category: type,
     materials: row[7] || type.delete(" Socks"),
     remote_product_image_url: row[6],
-    description: row[8]
+    description: descriptions.sample
     )
 
     sizeandquality = row[4].split(", ").map{|x| x.split(": ")}.each do |size|

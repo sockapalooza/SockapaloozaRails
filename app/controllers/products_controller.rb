@@ -2,7 +2,12 @@ class ProductsController < ApplicationController
   before_action :current_user, only: [:index]
 
   def index
-    @products = Product.all.order(price: :desc)
+    @products = Product.all
+    if params[:filter] || params[:sort]
+      products = Product.ransack(params[:filter])
+      products.sorts = params[:sort] if params[:sort]
+      @products = products.result
+    end
     render json: @products
   end
 
@@ -11,6 +16,8 @@ class ProductsController < ApplicationController
     render json: @product
   end
 
+  def sortedproduct
+  end
 
   def featured
     promo = Promo.pluck(:product_id)

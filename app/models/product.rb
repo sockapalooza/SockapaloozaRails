@@ -4,4 +4,5 @@ class Product < ApplicationRecord
   has_many :sizings
 
   attachment :product_image
+  default_scope { order(price: :desc)}
 end
