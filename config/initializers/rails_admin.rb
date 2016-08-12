@@ -47,9 +47,17 @@ RailsAdmin.config do |config|
     exclude_fields :orderings
     exclude_fields :created_at
     exclude_fields :updated_at
-    field :sizes
+    exclude_fields :sizes
+    field :sizings do
+      associated_collection_scope do
+        product = bindings[:object]
+        Proc.new { |scope|
+          scope = scope.where(product: product)
+        }
+      end
+    end
     field :price do
-      formatted_value do
+      pretty_value do
         value/100.0
       end
     end
@@ -59,16 +67,41 @@ RailsAdmin.config do |config|
       field :id
       field :username
       field :email
+      field :shippings
       field :role
       field :orders
+
   end
 
   config.model 'Size' do
+    object_label_method do
+      :size
+    end
     field :id
     field :size
     field :products
   end
 
-  config.excluded_models << Shipping
-  config.excluded_models << Sizing
+  config.model 'Shipping' do
+    field :user do
+      pretty_value do
+        value.try(:username)
+      end
+    end
+    field :address1
+    field :address2
+    field :city
+    field :state
+    field :zipcode 
+  end
+
+  config.model 'Sizing' do
+    object_label_method do
+      :admin_display
+    end
+    field :size
+    field :quantity
+    field :product
+  end
+
 end
