@@ -19,7 +19,7 @@ class OrderingsController < ApplicationController
     @ordering = @order.orderings.find(params[:id])
     @ordering.update(ordering_params)
     if Sizing.checkstock(params[:size_id],params[:product_id],params[:quantity])
-      adjuststock(params[:size_id],params[:product_id],params[:quantity])
+      adjuststock(params[:size_id], params[:product_id], params[:quantity])
       render json: @order
     else
       render json: {notice: "Sorry, we're now out of stock."}, status: :forbidden
@@ -30,7 +30,7 @@ class OrderingsController < ApplicationController
     @order = current_user.current_order
     @ordering = @order.orderings.find(params[:id])
     @ordering.destroy
-    adjuststock(params[:size_id],params[:product_id],-params[:quantity])
+    increasestock(params[:size_id], params[:product_id], params[:quantity])
     render json: @order
   end
 
