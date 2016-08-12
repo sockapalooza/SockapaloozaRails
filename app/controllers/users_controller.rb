@@ -3,19 +3,16 @@ class UsersController < ApplicationController
 
 
   def create
-    current_user.update!(
+    @user = current_user.update!(
     username: params[:username],
     email: params[:email],
     password: params[:password],
     role: "registered"
     )
     if @user.save
-      session[:username] = @user.username
-      redirect_to root_path
-      # respond_to do |format|
-      #   format.json {render @user, status: :created}
-      #   format.html {redirect_to root_path}
-      #   end
+      session[:id] = @user.id
+      render json: @user, serializer: UserSerializer
+
     else
       # respond_to do |format|
       #   format.json {render @user.errors.full_messages, status: :unprocessable_entity}
