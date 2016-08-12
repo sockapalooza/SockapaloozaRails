@@ -38,6 +38,7 @@ gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
 gem 'refile-postgres', '~> 1.4'
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '>= 1.0.0.rc'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 
 gem 'rack-cors'
 
