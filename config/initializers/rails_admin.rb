@@ -7,6 +7,9 @@ RailsAdmin.config do |config|
   #   warden.authenticate! scope: :user
   # end
   # config.current_user_method(&:current_user)
+  config.authorize_with do
+    redirect_to main_app.root_path unless current_user && current_user.role == "admin"
+  end
 
   ## == Cancan ==
   # config.authorize_with :cancan
@@ -38,4 +41,28 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model 'Product' do
+    exclude_fields :image
+    exclude_fields :orderings
+    exclude_fields :created_at
+    exclude_fields :updated_at
+    field :sizes 
+    field :price do
+      formatted_value do
+        value/100.0
+      end
+    end
+  end
+
+  config.model 'User' do
+      field :username
+      field :email
+      field :role
+      field :orders
+  end
+
+  config.excluded_models << Shipping
+  config.excluded_models << Size
+  config.excluded_models << Sizing
 end
