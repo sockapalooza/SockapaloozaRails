@@ -2,9 +2,11 @@ class ProductsController < ApplicationController
   before_action :current_user, only: [:index]
 
   def index
-    @products = Product.all.order(price: :desc)
-    if params[:sort]
-      @products = Product.sorts
+    @products = Product.all
+    if params[:filter] || params[:sort]
+      products = Product.ransack(params[:filter])
+      products.sorts = params[:sort] if params[:sort]
+      @products = products.result
     end
     render json: @products
   end
