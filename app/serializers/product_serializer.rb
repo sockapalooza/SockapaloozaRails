@@ -1,5 +1,5 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :color, :style, :category, :price, :materials, :product_image
+  attributes :id, :name, :color, :style, :category, :price, :materials, :description, :product_image
 
   has_many :sizes
   has_many :sizings
