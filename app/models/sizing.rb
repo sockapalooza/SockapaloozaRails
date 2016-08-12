@@ -12,5 +12,9 @@ class Sizing < ApplicationRecord
     sizing.save!
   end
 
+  def admin_display
+    size.size + ": " + quantity.to_s
+  end
+
 
 end

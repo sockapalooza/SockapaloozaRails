@@ -3,6 +3,9 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all.order(price: :desc)
+    if params[:sort]
+      @products = Product.sorts
+    end
     render json: @products
   end
 
@@ -11,6 +14,8 @@ class ProductsController < ApplicationController
     render json: @product
   end
 
+  def sortedproduct
+  end
 
   def featured
     promo = Promo.pluck(:product_id)
