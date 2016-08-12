@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :products
+  resources :charges
 
   root "products#index"
   get 'featured/products/' => 'products#featured'

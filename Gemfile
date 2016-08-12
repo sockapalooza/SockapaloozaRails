@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.1'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 
@@ -40,6 +40,7 @@ gem 'refile-postgres', '~> 1.4'
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '>= 1.0.0.rc'
 gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'stripe'
 
 gem 'rack-cors'
 
